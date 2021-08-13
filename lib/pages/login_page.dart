@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:hooka_tienda/pages/menu_page.dart';
+import 'package:hooka_tienda/providers/theme.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
-  static const String ROUTE = "/";
-
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -12,14 +11,17 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
+    final currentTheme = Provider.of<ThemeProvider>(context);
     return Flexible(
       child: SafeArea(
         child: Scaffold(
+          backgroundColor:
+              currentTheme.isDarkTheme() ? Color(0xff2a293d) : Colors.white,
           body: Form(
             child: Container(
               decoration: new BoxDecoration(
                 image: new DecorationImage(
-                  image: new AssetImage('assets/images/logo-1.png'),
+                  image: new AssetImage('assets/images/logo-1.jpg'),
                 ),
               ),
               child: Center(
@@ -27,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Flexible(
-                        child: Image.asset('assets/images/logo-1.png',
+                        child: Image.asset('assets/images/logo-1.jpg',
                             height: 400.0)),
                     SizedBox(
                       height: 15.0,
@@ -52,19 +54,24 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _userTextField() {
+    final currentTheme = Provider.of<ThemeProvider>(context);
     return StreamBuilder(
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: 35.0),
-          child: TextField(
-            keyboardType: TextInputType.emailAddress,
-            obscureText: true,
-            decoration: InputDecoration(
-              icon: Icon(Icons.verified_user),
-              hintText: 'Usuario',
-              labelText: 'Usuario elegido',
+        return Scaffold(
+          backgroundColor:
+              currentTheme.isDarkTheme() ? Colors.black12 : Colors.blue,
+          body: Container(
+            padding: EdgeInsets.symmetric(horizontal: 35.0),
+            child: TextField(
+              keyboardType: TextInputType.emailAddress,
+              obscureText: true,
+              decoration: InputDecoration(
+                icon: Icon(Icons.verified_user),
+                hintText: 'User',
+                labelText: 'Chosen User',
+              ),
+              onChanged: (value) {},
             ),
-            onChanged: (value) {},
           ),
         );
       },
@@ -72,19 +79,24 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _passwordTextField() {
+    final currentTheme = Provider.of<ThemeProvider>(context);
     return StreamBuilder(
       builder: (BuildContext context, AsyncSnapshot snapshot) {
-        return Container(
-          padding: EdgeInsets.symmetric(horizontal: 35.0),
-          child: TextField(
-            keyboardType: TextInputType.emailAddress,
-            obscureText: true,
-            decoration: InputDecoration(
-              icon: Icon(Icons.lock),
-              hintText: 'Contraseña',
-              labelText: 'Contraseña elegido',
+        return Scaffold(
+          backgroundColor:
+              currentTheme.isDarkTheme() ? Colors.black12 : Colors.blue,
+          body: Container(
+            padding: EdgeInsets.symmetric(horizontal: 35.0),
+            child: TextField(
+              keyboardType: TextInputType.emailAddress,
+              obscureText: true,
+              decoration: InputDecoration(
+                icon: Icon(Icons.lock),
+                hintText: 'Password',
+                labelText: 'Password Chosen',
+              ),
+              onChanged: (value) {},
             ),
-            onChanged: (value) {},
           ),
         );
       },
@@ -92,16 +104,21 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _bottonLogin() {
+    final currentTheme = Provider.of<ThemeProvider>(context);
     return StreamBuilder(
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return RaisedButton(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
-              child: Text(
-                'Iniciar Sesion',
-                style: TextStyle(
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold,
+            child: Scaffold(
+              backgroundColor:
+                  currentTheme.isDarkTheme() ? Colors.black12 : Colors.blue,
+              body: Container(
+                padding: EdgeInsets.symmetric(horizontal: 80.0, vertical: 15.0),
+                child: Text(
+                  'Log in',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -111,8 +128,7 @@ class _LoginPageState extends State<LoginPage> {
             elevation: 15.0,
             color: Colors.blue,
             onPressed: () {
-              MenuPage();
-              Navigator.pop(context);
+              Navigator.pushNamed(context, 'menu');
             });
       },
     );

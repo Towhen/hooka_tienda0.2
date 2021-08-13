@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:hooka_tienda/Contenidos/paramostrar.dart';
+import 'package:hooka_tienda/Contenidos/product.dart';
 
 class BannerCentro extends StatefulWidget {
-  static const String ROUTE = "/BannerCentral";
   @override
   _BannerCentroState createState() => _BannerCentroState();
 }
@@ -104,22 +107,22 @@ class _BannerCentroState extends State<BannerCentro> {
                     ),
                     bottonContainer(
                       image: 'images/savorizanteima.jpg',
-                      name: 'Savorizante',
+                      name: 'Flavoring',
                       prince: 10,
                     ),
                     bottonContainer(
                       image: 'images/niveldenicotinaima.jpg',
-                      name: 'Nivel de Nicotina',
+                      name: 'Nicotine level',
                       prince: 10,
                     ),
                     bottonContainer(
                       image: 'images/bebidaisima.jpg',
-                      name: 'Bebida',
+                      name: 'Drinks',
                       prince: 15,
                     ),
                     bottonContainer(
                       image: 'images/aperitivosima.jpg',
-                      name: 'Aperitivos',
+                      name: 'Appetizers',
                       prince: 5,
                     ),
                   ],
@@ -127,6 +130,96 @@ class _BannerCentroState extends State<BannerCentro> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class BannerCentro2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: GridView.builder(
+          padding: const EdgeInsets.all(20),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 2 / 3,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+          ),
+          itemCount: products.length,
+          itemBuilder: (context, index) {
+            final product = products[index];
+            return ItemProduct(
+              product: product,
+            );
+          }),
+    );
+  }
+}
+
+class ItemProduct extends StatelessWidget {
+  const ItemProduct({Key key, this.product}) : super(key: key);
+  final Product product;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 8,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+      child: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Expanded(
+              child: CircleAvatar(
+                backgroundColor: Colors.black,
+                child: ClipOval(
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Image.asset(
+                      product.image,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    product.name,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    product.description,
+                    style: Theme.of(context).textTheme.overline.copyWith(
+                          color: Colors.grey,
+                        ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text('\$${product.price} US'),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: FlatButton(
+                disabledColor: Colors.blue,
+                onPressed: () {},
+                child: Text('Add'),
+              ),
+            ),
+          ],
         ),
       ),
     );

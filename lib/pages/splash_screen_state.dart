@@ -39,12 +39,12 @@ class _SplashScreenState extends State<SplashScreen> {
                 radius: 100,
                 child: Padding(
                   padding: const EdgeInsets.all(12.0),
-                  child: Image.asset('assets/images/logo-1.png'),
+                  child: Image.asset('assets/images/logo-1.jpg'),
                 ),
               ),
               const SizedBox(height: 10),
               Text(
-                'Inventory Pos Management App 1',
+                'App Hooka Store',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headline5.copyWith(
                       fontWeight: FontWeight.bold,
